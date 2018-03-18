@@ -55,7 +55,7 @@ class Changes():
                 a.append(teacher)
                 a.append("No foreign language")
                 continue
-            for lessons in self.fetched_changes[x]:
+            for lessons in self.changes_dict[teacher]:
                if str(lessons[0:2]) == '3D':
                    # add teacher to list if empty
                    if not a:
