@@ -93,7 +93,7 @@ class IrcBot():
 			for line in chg:
 				self.privmsg(line[0])
 				for x in line[1:]:
-					self.privsmg("    " + x)
+					self.privmsg("    " + x)
 		else:
 			self.privmsg(".! No changes !.")
 
