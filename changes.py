@@ -36,7 +36,7 @@ class Changes():
 
         for teacher, x in zip(soup.find_all('h3', class_='table_title'), self.changes):
             self.changes_dict[teacher.text] = x
-        return self.changes_dict
+
 
     # Function run by the "user" to print changes in a pretty way and fetch them beforehand
     def fetch_changes(self):
@@ -44,6 +44,29 @@ class Changes():
         self.fetched_changes = self.extract_changes(url)
         self.print_changes()
 
+    def irc_changes(self):
+        result = []
+        url = self.open_url()
+        self.extract_changes(url)
+        for teacher in self.changes_dict:
+            a = []
+            # Language teachers. Edge cases #
+            if 'Szewczyk' in teacher or 'Olszewska' in teacher:
+                a.append(teacher)
+                a.append("No foreign language")
+                continue
+            for lessons in self.fetched_changes[x]:
+               if str(lessons[0:2]) == '3D':
+                   # add teacher to list if empty
+                   if not a:
+                       a.append(teacher)
+                   a.append(lessons)
+            # return list if not empty
+            if a:
+	            result.append(a)
+        return result
+
+"""
     # Afraid to touch without breaking the whole thing
     def print_changes(self):
         from termcolor import colored
@@ -67,18 +90,5 @@ class Changes():
                 else:
                     print('\t' + colored(y, 'blue'))
             print('\n---------------------\n')
+"""
 
-    def irc_changes(self):
-        result = []
-        url = self.open_url()
-        self.fetched_changes = self.extract_changes(url)
-        for x in self.fetched_changes:
-            a = []
-            for y in self.fetched_changes[x]:
-               if str(y[0:2]) == '3D':
-                   if not a:
-                       a.append(x)
-                   a.append(y)
-            if a:
-	            result.append(a)
-        return result
