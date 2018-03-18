@@ -51,9 +51,10 @@ class Changes():
         for teacher in self.changes_dict:
             a = []
             # Language teachers. Edge cases #
-            if 'Szewczyk' in teacher or 'Olszewska' in teacher:
+            if 'Szewczyk' in teacher or 'Olszewska - Rabiega' in teacher:
                 a.append(teacher)
                 a.append("No foreign language")
+                result.append(a)
                 continue
             for lessons in self.changes_dict[teacher]:
                if str(lessons[0:2]) == '3D':
